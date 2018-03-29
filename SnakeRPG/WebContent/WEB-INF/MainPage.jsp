@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -7,8 +7,11 @@
 <title>Snake RPG</title>
 </head>
 <body>
-<h1>Main Page</h1>
-<div><img src="images/zozio.jpg" alt="" /></div>
+	<h1>Main Page</h1>
+	<div>
+		<img src="images/zozio.jpg" alt="" />
+	</div>
+	<p>Hello ${nom} ! Ton mot de passe est : ${mdp}</p>
 </body>
 
 </html>
