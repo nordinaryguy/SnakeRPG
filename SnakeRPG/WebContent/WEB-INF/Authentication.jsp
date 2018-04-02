@@ -41,7 +41,6 @@
 </head>
 
 <body>
-
 	<!-- Top content -->
 	<div class="top-content">
 		<div class="container">
@@ -71,58 +70,69 @@
 			</div>
 
 			<div class="row register-form">
-			
+
 				<div class="col-sm-4 col-sm-offset-4">
-					<form role="form" action="snakerpg_auth" method="post" class="r-form">
+					<form role="form" action="snakerpg_auth" method="post"
+						class="r-form">
 						<div class="form-group">
 							<label class="sr-only" for="r-form-first-name">Pseudo</label> <input
 								type="text" name="r-form-first-name" placeholder="Pseudo..."
-								class="r-form-first-name form-control" id="r-form-first-name" value="" autofocus required>
+								class="r-form-first-name form-control" id="r-form-first-name"
+								value="" autofocus required>
 						</div>
 						<div class="form-group">
 							<label class="sr-only" for="l-form-password">Mot de passe</label>
 							<input type="password" name="l-form-password"
 								placeholder="Mot de passe..."
-								class="l-form-password form-control" id="l-form-password" value="" required>
+								class="l-form-password form-control" id="l-form-password"
+								value="" required>
 						</div>
 						<div class="form-group">
-							<label class="sr-only" for="l-form-confpassword">Confirmation du mot de passe</label>
-							<input type="password" name="l-form-confpassword"
+							<label class="sr-only" for="l-form-confpassword">Confirmation
+								du mot de passe</label> <input type="password"
+								name="l-form-confpassword"
 								placeholder="Confirmation mot de passe..."
-								class="l-form-password form-control" id="l-form-confpassword" value="" required>
+								class="l-form-password form-control" id="l-form-confpassword"
+								value="" required>
 						</div>
 						<div class="form-group">
-							<h3 class="snakecolorchooser">Choisis la couleur de ton Serpent :)</h3>
+							<h3 class="snakecolorchooser">Choisis la couleur de ton
+								Serpent :)</h3>
 							<label class="containerradiobutton" style="color: red;">Rouge
-								<input type="radio" checked="checked" name="radio" id ="red" value="red">
-								<span class="checkmark"></span>
+								<input type="radio" checked="checked" name="radio" id="red"
+								value="red"> <span class="checkmark"></span>
 							</label> <label class="containerradiobutton" style="color: black;">
-								Noir <input type="radio" name="radio" id="black" value="black"> <span
-								class="checkmark"></span>
+								Noir <input type="radio" name="radio" id="black" value="black">
+								<span class="checkmark"></span>
 							</label> <label class="containerradiobutton" style="color: green;">Vert
-								<input type="radio" name="radio" id="green" value="green"> <span
-								class="checkmark"></span>
+								<input type="radio" name="radio" id="green" value="green">
+								<span class="checkmark"></span>
 							</label>
 						</div>
-						<button name ="auth"  value="enregistrer" type="submit" class="btn">M'enregistrer !</button>
+						<button name="auth" value="enregistrer" type="submit" class="btn">M'enregistrer
+							!</button>
 					</form>
 				</div>
 			</div>
 			<div class="row login-form">
 				<div class="col-sm-4 col-sm-offset-4">
-					<form role="form" action="snakerpg_auth" method="post" class="l-form">
+					<form role="form" action="snakerpg_auth" method="post"
+						class="l-form">
 						<div class="form-group">
-							<label class="sr-only" for="l-form-username">Ton Pseudo</label> <input type="text" name="l-form-username"
-								placeholder="Pseudo..."
-								class="l-form-username form-control" id="l-form-username" required>
+							<label class="sr-only" for="l-form-username">Ton Pseudo</label> <input
+								type="text" name="l-form-username" placeholder="Pseudo..."
+								class="l-form-username form-control" id="l-form-username"
+								required>
 						</div>
 						<div class="form-group">
 							<label class="sr-only" for="l-form-password">Mot de passe</label>
 							<input type="password" name="l-form-passwordco"
 								placeholder="Mot de passe..."
-								class="l-form-password form-control" id="l-form-passwordco" required>
+								class="l-form-password form-control" id="l-form-passwordco"
+								required>
 						</div>
-						<button name ="auth"  value="connecter" type="submit" class="btn">Se connecter !</button>
+						<button name="auth" value="connecter" type="submit" class="btn">Se
+							connecter !</button>
 					</form>
 				</div>
 			</div>
@@ -144,11 +154,18 @@
 	</div>
 	</footer>
 
+	<c:out value="test" />
+
 	<!-- Javascript -->
 	<script src="assets/js/jquery-1.11.1.min.js"></script>
 	<script src="assets/bootstrap/js/bootstrap.min.js"></script>
 	<script src="assets/js/jquery.backstretch.min.js"></script>
 	<script src="assets/js/scripts.js"></script>
+	<!-- <script>
+			if(${samemdp!=null}){
+    			alert(${samemdp});
+			}
+	</script> -->
 
 	<!--[if lt IE 10]>
             <script src="assets/js/placeholder.js"></script>

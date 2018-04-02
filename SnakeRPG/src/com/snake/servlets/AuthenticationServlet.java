@@ -7,6 +7,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.snake.beans.Snake;
+import com.snake.dao.DAOFactory;
+import com.snake.dao.SnakeDAO;
+
 /**
  * Servlet implementation class AuthenticationServlet
  */
@@ -18,6 +22,7 @@ public class AuthenticationServlet extends HttpServlet {
 	 * @see HttpServlet#HttpServlet()
 	 */
 	public static final String VUE = "/WEB-INF/Authentication.jsp";
+	public static final String VUE2 = "/WEB-INF/MainPage.jsp";
 	public static final String METHODAUTH = "auth";
 	//Inscription
 	public static final String PSEUDOINS = "r-form-first-name";
@@ -27,6 +32,14 @@ public class AuthenticationServlet extends HttpServlet {
 	//Connexion
 	public static final String PSEUDOCO = "l-form-username";
 	public static final String MDPCO = "l-form-passwordco";
+	
+	//Objet SnakeDAO
+	private SnakeDAO snakeDAO;
+
+	public void init() throws ServletException{
+		DAOFactory daoFactory = DAOFactory.getInstance();
+        this.snakeDAO = daoFactory.getSnakeDAO();
+	}
 	
 	public AuthenticationServlet() {
 		super();
@@ -55,18 +68,24 @@ public class AuthenticationServlet extends HttpServlet {
 			String mdpIns = request.getParameter(MDP);
 			String mdp_conf = request.getParameter(MDP_CONF);
 			String couleur = request.getParameter(COULEUR);
-			boolean samemdp = true;
-			if (!mdpIns.equals(mdp_conf)) {
-				samemdp = false;
-				request.setAttribute("samedp", samemdp);
-				System.out.println("Erreur ! mots de passe non identiques");
-				this.getServletContext().getRequestDispatcher(VUE).forward( request, response );
-			}else {
-				request.setAttribute("samedp", samemdp);
+			String samemdp = null;
+			try {
+				validationNom(pseudoIns);
+				validationMotsDePasse(mdpIns, mdp_conf);
+//				samemdp = "Votre inscription a été validée ! Vous pouvez désormais vous connecter :)";
+//				request.setAttribute("samedp", samemdp);
 				System.out.println("Inscription : ");
 				System.out.println(pseudoIns);
 				System.out.println(mdpIns);
 				System.out.println(couleur);
+				Snake snake = new Snake(pseudoIns,mdpIns,couleur);
+				snakeDAO.ajouter(snake);
+				request.setAttribute("snakes", snakeDAO.lister());
+				System.out.println(snakeDAO.lister());
+				this.getServletContext().getRequestDispatcher(VUE2).forward( request, response );
+			} catch (Exception e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
 			}
 		}else if(methodAuth.equals("connecter")){
 			String pseudoco = request.getParameter(PSEUDOCO);
@@ -80,6 +99,30 @@ public class AuthenticationServlet extends HttpServlet {
 		}else {
 			System.out.println("Erreur");
 			//Renvoyer vers une page d'erreur ou vers la page d'auth
+		}
+	}
+
+	/**
+	 * Valide les mots de passe saisis.
+	 */
+	private void validationMotsDePasse( String motDePasse, String confirmation ) throws Exception{
+		if (motDePasse != null && motDePasse.trim().length() != 0 && confirmation != null && confirmation.trim().length() != 0) {
+			if (!motDePasse.equals(confirmation)) {
+				throw new Exception("Les mots de passe entrés sont différents, merci de les saisir à nouveau.");
+			} else if (motDePasse.trim().length() < 3) {
+				throw new Exception("Les mots de passe doivent contenir au moins 3 caractères.");
+			}
+		} else {
+			throw new Exception("Merci de saisir et confirmer votre mot de passe.");
+		}
+	}
+
+	/**
+	 * Valide le nom d'utilisateur saisi.
+	 */
+	private void validationNom( String nom ) throws Exception {
+		if ( nom != null && nom.trim().length() < 3 ) {
+			throw new Exception( "Le nom d'utilisateur doit contenir au moins 3 caractères." );
 		}
 	}
 }

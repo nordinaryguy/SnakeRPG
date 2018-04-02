@@ -11,7 +11,11 @@
 	<div>
 		<img src="images/zozio.jpg" alt="" />
 	</div>
-	<p>Hello ${nom} ! Ton mot de passe est : ${mdp}</p>
+	  <ul>
+        <c:forEach var="snake" items="${ snakes }">
+            <li><c:out value="${ snake.pseudo }" /> <c:out value="${ snake.password }" /></li>
+        </c:forEach>
+    </ul>  
 </body>
 
 </html>
