@@ -1,0 +1,130 @@
+html, body {
+	height: 100%;
+	width: 100%;
+}
+
+/* padded section */
+.pad-section {
+	padding: 50px 0;
+}
+
+.pad-section img {
+	width: 100%;
+}
+
+/* vertical-centered text */
+.text-vcenter {
+	display: table-cell;
+	text-align: center;
+	vertical-align: middle;
+}
+
+.test {
+	background-color: red;
+}
+
+.text-vcenter h1 {
+	font-size: 4.5em;
+	font-weight: 700;
+	margin: 0;
+	padding: 0;
+}
+
+.colonne-centree {
+	float: none;
+	margin: 0 auto;
+}
+
+/* additional sections */
+/* ----------------------------------------------------------------------- */
+.divheaderinfo {
+	display: inline-block;
+	position: relative;
+	left: 25%;
+}
+
+#home {
+	font-size: large;
+	background-image: url("1.jpg");
+	background-attachment: fixed;
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: cover;
+	color: #ffffff;
+	display: table;
+	height: 100%;
+	position: relative;
+	width: 100%;
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover;
+}
+
+#store {
+	font-size: large;
+	background-image: url("snakestore.jpg");
+	background-attachment: fixed;
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: cover;
+	color: #ffffff;
+	display: table;
+	height: 100%;
+	position: relative;
+	width: 100%;
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover;
+}
+
+#snakeinfos {
+	font-size: large;
+	background-image: url("shopsnakebackground.jpg");
+	background-attachment: fixed;
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: cover;
+	color: #ffffff;
+	display: table;
+	height: 100%;
+	position: relative;
+	width: 100%;
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover;
+}
+
+.marginmod {
+	margin-top: 30px;
+}
+
+.marginmod1 {
+	margin-top: 10%;
+}
+
+.marginmod2 {
+	margin-top: 5%;
+}
+
+.marginmodspec {
+	margin-top: 5%;
+	margin-bottom: 30px;
+}
+
+img {
+	display: inline-block;
+	width: 60px !important ; 
+	height : 60px !important;
+}
+
+.conteneurStore {
+	background: rgb(54, 25, 25); /* Fall-back for browsers that don't
+                                    support rgba */
+	background: rgba(54, 25, 25, .5);
+	padding: 1em;
+	border: 3px solid lightgrey;
+	border-radius: 10px;
+}

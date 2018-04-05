@@ -33,12 +33,12 @@ public class SnakeDAOImpl implements SnakeDAO {
 			preparedStatement.setInt(4, snake.getPartiesGagnees());
 			preparedStatement.setInt(5, snake.getPartiesPerdues());
 			preparedStatement.setInt(6, snake.getBonusPris());
-			
+
 			preparedStatement.setString(7, snake.getPseudo());
 			preparedStatement.setString(8, snake.getPassword());
 			preparedStatement.setString(9, snake.getCouleur());
 			preparedStatement.setString(10, snake.getImage());
-			
+
 			preparedStatement.setDouble(11, snake.getxP());
 			preparedStatement.setDouble(12, snake.getScore());
 			preparedStatement.setDouble(13, snake.getArgent());
@@ -60,15 +60,14 @@ public class SnakeDAOImpl implements SnakeDAO {
 		try {
 			connexion = daoFactory.getConnection();
 			statement = connexion.createStatement();
-			resultat = statement.executeQuery("SELECT pseudo, password FROM snake;");
+			resultat = statement.executeQuery("SELECT pseudo, level FROM snake;");
 
 			while (resultat.next()) {
 				String pseudo = resultat.getString("pseudo");
-				String password = resultat.getString("password");
+				int level = resultat.getInt("level");
 				Snake snake = new Snake();
 				snake.setPseudo(pseudo);
-				snake.setPassword(password);
-
+				snake.setLevel(level);
 				snakes.add(snake);
 			}
 		} catch (SQLException e) {
@@ -78,4 +77,51 @@ public class SnakeDAOImpl implements SnakeDAO {
 		return snakes;
 	}
 
+	public Snake getSnake(String pPseudo) {
+
+		Connection connexion = null;
+		Statement statement = null;
+		ResultSet resultat = null;
+		Snake snake = new Snake();
+		try {
+			connexion = daoFactory.getConnection();
+			statement = connexion.createStatement();
+			String pseudoForQuery = "\""+pPseudo+"\"";
+			resultat = statement.executeQuery("SELECT * FROM snake WHERE pseudo="+pseudoForQuery+";");
+
+			while (resultat.next()) {
+				String pseudo = resultat.getString("pseudo");
+				int level = resultat.getInt("level");
+				int nbEnnemisTues = resultat.getInt("nbEnnemisTues");
+				int nbMorts = resultat.getInt("nbMorts");
+				int partiesGagnees = resultat.getInt("partiesGagnees");
+				int partiesPerdues = resultat.getInt("partiesPerdues");
+				int bonusPris = resultat.getInt("bonusPris");
+
+				String couleur = resultat.getString("couleur");
+				String image = resultat.getString("image");
+
+				double xP = resultat.getDouble("xP");
+				double score = resultat.getDouble("score");;
+				double argent = resultat.getDouble("argent");;
+				
+				
+				snake.setPseudo(pseudo);
+				snake.setLevel(level);
+				snake.setNbEnnemisTues(nbEnnemisTues);
+				snake.setNbMorts(nbMorts);
+				snake.setPartiesGagnees(partiesGagnees);
+				snake.setPartiesPerdues(partiesPerdues);
+				snake.setBonusPris(bonusPris);
+				snake.setCouleur(couleur);
+				snake.setImage(image);
+				snake.setxP(xP);
+				snake.setScore(score);
+				snake.setArgent(argent);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return snake;
+	}
 }

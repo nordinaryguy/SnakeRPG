@@ -6,6 +6,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.snake.beans.Snake;
 import com.snake.dao.DAOFactory;
@@ -52,6 +53,8 @@ public class AuthenticationServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		//response.getWriter().append("Served at: ").append(request.getContextPath());
+		HttpSession session = request.getSession();
+		session.invalidate();
 		this.getServletContext().getRequestDispatcher(VUE).forward( request, response );
 	}
 
@@ -68,7 +71,7 @@ public class AuthenticationServlet extends HttpServlet {
 			String mdpIns = request.getParameter(MDP);
 			String mdp_conf = request.getParameter(MDP_CONF);
 			String couleur = request.getParameter(COULEUR);
-			String samemdp = null;
+			//String samemdp = null;
 			try {
 				validationNom(pseudoIns);
 				validationMotsDePasse(mdpIns, mdp_conf);
@@ -80,9 +83,11 @@ public class AuthenticationServlet extends HttpServlet {
 				System.out.println(couleur);
 				Snake snake = new Snake(pseudoIns,mdpIns,couleur);
 				snakeDAO.ajouter(snake);
-				request.setAttribute("snakes", snakeDAO.lister());
-				System.out.println(snakeDAO.lister());
-				this.getServletContext().getRequestDispatcher(VUE2).forward( request, response );
+				HttpSession session = request.getSession();
+				
+				session.setAttribute("snake", snake);
+				session.setAttribute("snakes", snakeDAO.lister());
+				response.sendRedirect(request.getContextPath()+"/snakerpg");
 			} catch (Exception e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
@@ -93,9 +98,11 @@ public class AuthenticationServlet extends HttpServlet {
 			System.out.println("Connexion : ");
 			System.out.println(pseudoco);
 			System.out.println(mdpco);
-			request.setAttribute("nom", pseudoco);
-			request.setAttribute("mdp", mdpco);
-			this.getServletContext().getRequestDispatcher("/WEB-INF/MainPage.jsp").forward( request, response );
+			HttpSession session = request.getSession();
+			Snake snake = snakeDAO.getSnake(pseudoco);
+			session.setAttribute("snake", snake);
+			session.setAttribute("snakes", snakeDAO.lister());
+			response.sendRedirect(request.getContextPath()+"/snakerpg");
 		}else {
 			System.out.println("Erreur");
 			//Renvoyer vers une page d'erreur ou vers la page d'auth
