@@ -77,6 +77,26 @@ public class SnakeDAOImpl implements SnakeDAO {
 		return snakes;
 	}
 
+	public String getSnakePassword(String pPseudo) {
+		String password = null;
+		Connection connexion = null;
+		Statement statement = null;
+		ResultSet resultat = null;
+		try {
+			connexion = daoFactory.getConnection();
+			statement = connexion.createStatement();
+			String pseudoForQuery = "\""+pPseudo+"\"";
+			resultat = statement.executeQuery("SELECT password FROM snake WHERE pseudo="+pseudoForQuery+";");
+
+			while (resultat.next()) {
+				password = resultat.getString("password");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return password;
+	}
+
 	public Snake getSnake(String pPseudo) {
 
 		Connection connexion = null;
@@ -104,8 +124,8 @@ public class SnakeDAOImpl implements SnakeDAO {
 				double xP = resultat.getDouble("xP");
 				double score = resultat.getDouble("score");;
 				double argent = resultat.getDouble("argent");;
-				
-				
+
+
 				snake.setPseudo(pseudo);
 				snake.setLevel(level);
 				snake.setNbEnnemisTues(nbEnnemisTues);

@@ -1,6 +1,8 @@
 package com.snake.servlets;
 
 import java.io.IOException;
+import java.util.HashMap;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -11,6 +13,7 @@ import javax.servlet.http.HttpSession;
 import com.snake.beans.Snake;
 import com.snake.dao.DAOFactory;
 import com.snake.dao.SnakeDAO;
+import com.snake.dao.SnakeDAOImpl;
 
 /**
  * Servlet implementation class AuthenticationServlet
@@ -36,6 +39,8 @@ public class AuthenticationServlet extends HttpServlet {
 	
 	//Objet SnakeDAO
 	private SnakeDAO snakeDAO;
+	
+	private String erreur = null;
 
 	public void init() throws ServletException{
 		DAOFactory daoFactory = DAOFactory.getInstance();
@@ -52,7 +57,6 @@ public class AuthenticationServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		//response.getWriter().append("Served at: ").append(request.getContextPath());
 		HttpSession session = request.getSession();
 		session.invalidate();
 		this.getServletContext().getRequestDispatcher(VUE).forward( request, response );
@@ -75,8 +79,6 @@ public class AuthenticationServlet extends HttpServlet {
 			try {
 				validationNom(pseudoIns);
 				validationMotsDePasse(mdpIns, mdp_conf);
-//				samemdp = "Votre inscription a été validée ! Vous pouvez désormais vous connecter :)";
-//				request.setAttribute("samedp", samemdp);
 				System.out.println("Inscription : ");
 				System.out.println(pseudoIns);
 				System.out.println(mdpIns);
@@ -91,21 +93,38 @@ public class AuthenticationServlet extends HttpServlet {
 			} catch (Exception e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
+				erreur = e1.getMessage();
+				request.setAttribute("erreur", erreur);
+				this.getServletContext().getRequestDispatcher(VUE).forward( request, response );
 			}
 		}else if(methodAuth.equals("connecter")){
 			String pseudoco = request.getParameter(PSEUDOCO);
 			String mdpco = request.getParameter(MDPCO);
-			System.out.println("Connexion : ");
-			System.out.println(pseudoco);
-			System.out.println(mdpco);
-			HttpSession session = request.getSession();
-			Snake snake = snakeDAO.getSnake(pseudoco);
-			session.setAttribute("snake", snake);
-			session.setAttribute("snakes", snakeDAO.lister());
-			response.sendRedirect(request.getContextPath()+"/snakerpg");
+//			System.out.println("Connexion : ");
+//			System.out.println(pseudoco);
+//			System.out.println(mdpco);
+			
+			try {
+				Snake snake = snakeDAO.getSnake(pseudoco);
+				String passwordSnakeBDD = snakeDAO.getSnakePassword(snake.getPseudo());
+				if (snake.getPseudo().equals(pseudoco) && snakeDAO.getSnakePassword(pseudoco).equals(mdpco)) {
+					HttpSession session = request.getSession();
+					session.setAttribute("snake", snake);
+					session.setAttribute("snakes", snakeDAO.lister());
+					response.sendRedirect(request.getContextPath()+"/snakerpg");
+				}else {
+					this.erreur= "Désolé ! Le pseudo et/ou le mot de passe est incorrect !";
+					request.setAttribute("erreur", erreur);
+					this.getServletContext().getRequestDispatcher(VUE).forward( request, response );
+				}
+			} catch (Exception e) {
+				// TODO: handle exception
+				erreur = "Désolé ! Le pseudo et/ou le mot de passe est incorrect !";
+				request.setAttribute("erreur", erreur);
+				this.getServletContext().getRequestDispatcher(VUE).forward( request, response );
+			}
 		}else {
-			System.out.println("Erreur");
-			//Renvoyer vers une page d'erreur ou vers la page d'auth
+			response.sendRedirect(request.getContextPath()+"/snakerpg_auth");
 		}
 	}
 

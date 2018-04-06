@@ -11,6 +11,8 @@ body {
 
 strong { font-weight: 500; }
 
+
+
 a, a:hover, a:focus {
 	color: #42c5ea;
 	text-decoration: none;
@@ -97,7 +99,6 @@ img { max-width: 100%; }
 
 
 /***** Footer *****/
-
 footer { padding-bottom: 70px; color: #fff; }
 
 footer .footer-border {

@@ -134,11 +134,27 @@
 						<button name="auth" value="connecter" type="submit" class="btn">Se
 							connecter !</button>
 					</form>
+
 				</div>
 			</div>
 		</div>
 	</div>
-
+	<c:choose>
+		<c:when test="${not empty erreur}">
+			<div class="row">
+				<div class="col-md-6 col-md-offset-3">
+					<h1
+						style="font-size: 50px; color: red; font-weight: bold; background: rgb(54, 25, 25); /* Fall-back for browsers that don't
+                                    support rgba */ background: rgba(54, 25, 25, .8); padding: 1em; border: 3px solid black;"">
+						<c:out value="${erreur}" />
+					</h1>
+				</div>
+			</div>
+		</c:when>
+		<c:otherwise>
+		</c:otherwise>
+	</c:choose>
+	
 	<!-- Footer -->
 	<footer>
 	<div class="container">
