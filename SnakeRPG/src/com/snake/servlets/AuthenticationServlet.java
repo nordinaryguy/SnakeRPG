@@ -1,8 +1,6 @@
 package com.snake.servlets;
 
 import java.io.IOException;
-import java.util.HashMap;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -13,7 +11,6 @@ import javax.servlet.http.HttpSession;
 import com.snake.beans.Snake;
 import com.snake.dao.DAOFactory;
 import com.snake.dao.SnakeDAO;
-import com.snake.dao.SnakeDAOImpl;
 
 /**
  * Servlet implementation class AuthenticationServlet
@@ -149,6 +146,9 @@ public class AuthenticationServlet extends HttpServlet {
 	private void validationNom( String nom ) throws Exception {
 		if ( nom != null && nom.trim().length() < 3 ) {
 			throw new Exception( "Le nom d'utilisateur doit contenir au moins 3 caractères." );
+		}
+		if (snakeDAO.SnakePseudoExists(nom)) {
+			throw new Exception( "Ce pseudo existe déjà !" );
 		}
 	}
 }

@@ -76,6 +76,30 @@ public class SnakeDAOImpl implements SnakeDAO {
 		// TODO Auto-generated method stub
 		return snakes;
 	}
+	
+	public boolean SnakePseudoExists(String pPseudo) {
+		boolean pseudoExists = false;
+		String pseudo = null;
+		Connection connexion = null;
+		Statement statement = null;
+		ResultSet resultat = null;
+		try {
+			connexion = daoFactory.getConnection();
+			statement = connexion.createStatement();
+			String pseudoForQuery = "\""+pPseudo+"\"";
+			resultat = statement.executeQuery("SELECT pseudo FROM snake WHERE pseudo="+pseudoForQuery+";");
+
+			while (resultat.next()) {
+				pseudo = resultat.getString("pseudo");
+				if (!pseudo.equals(null)) {
+					pseudoExists = true;
+				}
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return pseudoExists;
+	}
 
 	public String getSnakePassword(String pPseudo) {
 		String password = null;
