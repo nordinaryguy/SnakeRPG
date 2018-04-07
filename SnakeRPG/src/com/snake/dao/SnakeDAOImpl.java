@@ -8,6 +8,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.snake.beans.Bonus;
 import com.snake.beans.Snake;
 
 public class SnakeDAOImpl implements SnakeDAO {
@@ -20,7 +21,6 @@ public class SnakeDAOImpl implements SnakeDAO {
 
 	@Override
 	public void ajouter(Snake snake) {
-		// TODO Auto-generated method stub
 		Connection connexion = null;
 		PreparedStatement preparedStatement = null;
 
@@ -73,10 +73,9 @@ public class SnakeDAOImpl implements SnakeDAO {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		// TODO Auto-generated method stub
 		return snakes;
 	}
-	
+
 	public boolean SnakePseudoExists(String pPseudo) {
 		boolean pseudoExists = false;
 		String pseudo = null;
@@ -127,6 +126,7 @@ public class SnakeDAOImpl implements SnakeDAO {
 		Statement statement = null;
 		ResultSet resultat = null;
 		Snake snake = new Snake();
+		ArrayList<Bonus> bonusArray = new ArrayList<>();
 		try {
 			connexion = daoFactory.getConnection();
 			statement = connexion.createStatement();
@@ -134,14 +134,16 @@ public class SnakeDAOImpl implements SnakeDAO {
 			resultat = statement.executeQuery("SELECT * FROM snake WHERE pseudo="+pseudoForQuery+";");
 
 			while (resultat.next()) {
+				int id = resultat.getInt("id");
+				bonusArray = getSnakeBonus(id);
 				String pseudo = resultat.getString("pseudo");
 				int level = resultat.getInt("level");
 				int nbEnnemisTues = resultat.getInt("nbEnnemisTues");
 				int nbMorts = resultat.getInt("nbMorts");
 				int partiesGagnees = resultat.getInt("partiesGagnees");
 				int partiesPerdues = resultat.getInt("partiesPerdues");
-				int bonusPris = resultat.getInt("bonusPris");
-
+				//int bonusPris = resultat.getInt("bonusPris");
+				int bonusPris = bonusArray.size();
 				String couleur = resultat.getString("couleur");
 				String image = resultat.getString("image");
 
@@ -149,7 +151,7 @@ public class SnakeDAOImpl implements SnakeDAO {
 				double score = resultat.getDouble("score");;
 				double argent = resultat.getDouble("argent");;
 
-
+				snake.setiD(id);
 				snake.setPseudo(pseudo);
 				snake.setLevel(level);
 				snake.setNbEnnemisTues(nbEnnemisTues);
@@ -162,10 +164,45 @@ public class SnakeDAOImpl implements SnakeDAO {
 				snake.setxP(xP);
 				snake.setScore(score);
 				snake.setArgent(argent);
+				snake.setBonusPossedes(bonusArray);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		return snake;
+	}
+
+	public ArrayList<Bonus> getSnakeBonus(int idSnake) {
+		Connection connexion = null;
+		Statement statement = null;
+		ResultSet resultat = null;
+		ArrayList<Bonus> bonusArray = new ArrayList<Bonus>();
+		try {
+			connexion = daoFactory.getConnection();
+			statement = connexion.createStatement();
+			resultat = statement.executeQuery("SELECT b.*, s.pseudo\r\n" + 
+					"FROM snake s\r\n" + 
+					"INNER JOIN bonus b\r\n" + 
+					"ON s.id = b.idsnakeassocie\r\n" + 
+					"WHERE s.id="+idSnake);
+
+			while (resultat.next()) {
+				int id = resultat.getInt("id");
+				String nom = resultat.getString("nom");
+				String effet = resultat.getString("effet");
+				String image = resultat.getString("image");
+				int prix = resultat.getInt("prix");
+				int idsnakeassocie = resultat.getInt("idsnakeassocie");
+
+				Bonus b = new Bonus(id, nom, effet, image, prix,idsnakeassocie);
+				bonusArray.add(b);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		//		for (Bonus bonus : bonusArray) {
+		//			System.out.println(bonus.getNom());
+		//		}
+		return bonusArray;
 	}
 }

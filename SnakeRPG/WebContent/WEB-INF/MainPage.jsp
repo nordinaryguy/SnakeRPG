@@ -119,8 +119,9 @@
 						<li>Pseudo : ${sessionScope.snake.pseudo}</li>
 						<li>Level : ${sessionScope.snake.level}</li>
 						<li>XP : ${sessionScope.snake.xP}</li>
-						<li>Couleur du snake : ${sessionScope.snake.couleur}</li>
 						<li>Argent : ${sessionScope.snake.argent}$€</li>
+						<li>Couleur du snake : <img class="imgbonusInvis"
+									src="css/${sessionScope.snake.couleur}snake.png" alt="logo ${sessionScope.snake.couleur}"></li>
 					</ul>
 					</p>
 				</div>
@@ -132,9 +133,11 @@
 							${sessionScope.snake.bonusPris}</li>
 						<li>Bonus disponibles :</li>
 						<ul>
-							<li>b1</li>
-							<li>b2</li>
-							<li>b3</li>
+							<c:forEach items="${ sessionScope.snake.bonusPossedes}"
+								var="bonus" varStatus="status">
+								<li>${bonus.nom} <img class="imgbonusInvis"
+									src="css/${bonus.image}" alt="logo ${bonus.nom}"></li>
+							</c:forEach>
 						</ul>
 					</ul>
 					</p>
@@ -150,8 +153,8 @@
 						<li>Nombre de fois où <b>TU</b> as été exterminé :
 							${sessionScope.snake.nbMorts}
 						</li>
-						<li>Parties gagnées :${sessionScope.snake.partiesGagnees}</li>
-						<li>Parties Perdues :${sessionScope.snake.partiesPerdues}</li>
+						<li>Parties gagnées : ${sessionScope.snake.partiesGagnees}</li>
+						<li>Parties Perdues : ${sessionScope.snake.partiesPerdues}</li>
 					</ul>
 					</p>
 				</div>

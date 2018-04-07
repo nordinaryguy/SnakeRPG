@@ -1,7 +1,9 @@
 package com.snake.dao;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import com.snake.beans.Bonus;
 import com.snake.beans.Snake;
 
 public interface SnakeDAO {
@@ -10,4 +12,5 @@ public interface SnakeDAO {
 	Snake getSnake(String pPseudo);
 	String getSnakePassword(String pPseudo);
 	boolean SnakePseudoExists(String pPseudo);
+	ArrayList<Bonus> getSnakeBonus(int idSnake);
 }

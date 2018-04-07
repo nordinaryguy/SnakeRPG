@@ -2,6 +2,9 @@ package com.snake.beans;
 
 public class Bonus {
 
+	private int id;
+	private int idsnakeassocie;
+	
 	private String nom;
 	private String effet;
 	private String image;
@@ -12,13 +15,17 @@ public class Bonus {
 		this.effet = null;
 		this.image = null;
 		this.prix = -1;
+		this.id = -1;
+		this.idsnakeassocie = -1;
 	}
 	
-	public Bonus(String pNom, String pEffet, int pPrix) {
+	public Bonus(int pId, String pNom, String pEffet, String pImage, int pPrix, int pIdSnakeAssocie) {
+		this.id = pId;
 		this.nom = pNom;
 		this.effet = pEffet;
-		this.image = null;
+		this.image = pImage;
 		this.prix = pPrix;
+		this.idsnakeassocie = pIdSnakeAssocie;
 	}
 	
 	//Getters and Setters
@@ -47,5 +54,19 @@ public class Bonus {
 		this.prix = prix;
 	}
 	
-	
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public int getIdsnakeassocie() {
+		return idsnakeassocie;
+	}
+
+	public void setIdsnakeassocie(int idsnakeassocie) {
+		this.idsnakeassocie = idsnakeassocie;
+	}
 }

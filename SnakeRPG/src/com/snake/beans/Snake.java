@@ -21,7 +21,7 @@ public class Snake {
 	private double score;
 	private double argent;
 	
-	private ArrayList<Bonus> BonusPossedes;
+	private ArrayList<Bonus> bonusPossedes = new ArrayList<>();
 
 	public Snake() {
 		this.iD = -1;
@@ -38,7 +38,6 @@ public class Snake {
 		this.xP = 0;
 		this.score = 0;
 		this.argent = 0;
-		this.BonusPossedes = new ArrayList<Bonus>();
 	}
 	
 	public Snake(String pPseudo, String pPassword, String pCouleur) {
@@ -56,7 +55,6 @@ public class Snake {
 		this.xP = 0;
 		this.score = 0;
 		this.argent = 0;
-		this.BonusPossedes = new ArrayList<Bonus>();
 	}
 	
 	//Getters and Setters
@@ -173,10 +171,10 @@ public class Snake {
 	}
 
 	public ArrayList<Bonus> getBonusPossedes() {
-		return BonusPossedes;
+		return bonusPossedes;
 	}
 
-	public void setBonusPossedes(ArrayList<Bonus> bonusPossedes) {
-		BonusPossedes = bonusPossedes;
+	public void setBonusPossedes(ArrayList<Bonus> pBonusPossedes) {
+		this.bonusPossedes = pBonusPossedes;
 	}
 }
