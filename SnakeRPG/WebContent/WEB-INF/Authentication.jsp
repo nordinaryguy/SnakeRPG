@@ -78,7 +78,7 @@
 							<label class="sr-only" for="r-form-first-name">Pseudo</label> <input
 								type="text" name="r-form-first-name" placeholder="Pseudo..."
 								class="r-form-first-name form-control" id="r-form-first-name"
-								value="" autofocus required>
+								value="<c:out value=""></c:out>" autofocus required>
 						</div>
 						<div class="form-group">
 							<label class="sr-only" for="l-form-password">Mot de passe</label>
@@ -122,6 +122,7 @@
 							<label class="sr-only" for="l-form-username">Ton Pseudo</label> <input
 								type="text" name="l-form-username" placeholder="Pseudo..."
 								class="l-form-username form-control" id="l-form-username"
+								value="<c:out value=""></c:out>"
 								required>
 						</div>
 						<div class="form-group">

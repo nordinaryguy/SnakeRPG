@@ -34,7 +34,7 @@
 				<li><a href="#home">SnakeHome</a></li>
 				<li><a href="#store">SnakeStore</a></li>
 				<li><a href="#snakeinfos">SnakeInfos</a></li>
-				<li><a href="${ pageContext.request.contextPath}/snakerpg_auth">Déconnexion</a></li>
+				<li><a href="${ pageContext.request.contextPath}/Deconnexion">Déconnexion</a></li>
 			</ul>
 		</div>
 		<!-- /.navbar-collapse -->
