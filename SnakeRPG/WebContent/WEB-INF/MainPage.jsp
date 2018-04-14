@@ -158,8 +158,8 @@
 					</ul>
 					</p>
 				</div>
-				<div class="col-md-4 col-md-offset-1  marginmod1 text-justify">
-					<h1>Les Snakers inscrits :</h1>
+				<div class="col-md-4 col-md-offset-1  marginmod1 ">
+					<h1>Les 5 derniers Snakers inscrits :</h1>
 					<p>
 					<ul>
 						<c:forEach items="${ sessionScope.snakes }" var="snaker"

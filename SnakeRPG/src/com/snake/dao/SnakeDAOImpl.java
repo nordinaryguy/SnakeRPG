@@ -60,7 +60,7 @@ public class SnakeDAOImpl implements SnakeDAO {
 		try {
 			connexion = daoFactory.getConnection();
 			statement = connexion.createStatement();
-			resultat = statement.executeQuery("SELECT pseudo, level FROM snake;");
+			resultat = statement.executeQuery("SELECT pseudo, level FROM snake ORDER BY id DESC LIMIT 5;");
 
 			while (resultat.next()) {
 				String pseudo = resultat.getString("pseudo");
