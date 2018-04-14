@@ -64,7 +64,9 @@
 					</div>
 					<div class="col-sm-3">30 $€</div>
 					<div class="col-sm-3">
-						<button type="button" class="btn btn-info btn-md">Acheter</button>
+						<a href="${ pageContext.request.contextPath}/store?articleName=invincibilite">
+							<button type="button" class="btn btn-info btn-md">Acheter</button>
+						</a><c:if test="${sessionScope.snake.argent<30 }"><span class="nomoney">(Pas assez d'argent...)</span></c:if>
 					</div>
 				</div>
 				<div class="row marginmod2">
@@ -75,7 +77,9 @@
 					</div>
 					<div class="col-sm-3">20 $€</div>
 					<div class="col-sm-3">
-						<button type="button" class="btn btn-info btn-md">Acheter</button>
+						<a href="${ pageContext.request.contextPath}/store?articleName=invisibilite">
+							<button type="button" class="btn btn-info btn-md">Acheter</button>
+						</a><c:if test="${sessionScope.snake.argent<20 }"><span class="nomoney">(Pas assez d'argent...)</span></c:if>
 					</div>
 				</div>
 				<div class="row marginmod2">
@@ -85,7 +89,9 @@
 					</div>
 					<div class="col-sm-3">10 $€</div>
 					<div class="col-sm-3">
-						<button type="button" class="btn btn-info btn-md">Acheter</button>
+						<a href="${ pageContext.request.contextPath}/store?articleName=xp100">
+							<button type="button" class="btn btn-info btn-md">Acheter</button>
+						</a><c:if test="${sessionScope.snake.argent<10 }"><span class="nomoney">(Pas assez d'argent...)</span></c:if>
 					</div>
 				</div>
 				<div class="row marginmodspec">
@@ -96,7 +102,9 @@
 					</div>
 					<div class="col-sm-3">50 $€</div>
 					<div class="col-sm-3">
-						<button type="button" class="btn btn-info btn-md">Acheter</button>
+						<a href="${ pageContext.request.contextPath}/store?articleName=levelup">
+							<button type="button" class="btn btn-info btn-md">Acheter</button>
+						</a><c:if test="${sessionScope.snake.argent<50 }"><span class="nomoney">(Pas assez d'argent...)</span></c:if>
 					</div>
 				</div>
 			</div>

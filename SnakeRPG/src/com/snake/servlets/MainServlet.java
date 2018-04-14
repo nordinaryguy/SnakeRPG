@@ -1,6 +1,8 @@
 package com.snake.servlets;
 
 import java.io.IOException;
+import java.util.ArrayList;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -9,6 +11,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.snake.beans.Snake;
+import com.snake.dao.DAOFactory;
+import com.snake.dao.SnakeDAO;
 
 /**
  * Servlet implementation class MainServlet
@@ -16,7 +20,6 @@ import com.snake.beans.Snake;
 @WebServlet("/snakerpg")
 public class MainServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
@@ -32,10 +35,11 @@ public class MainServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		//response.getWriter().append("Served at: ").append(request.getContextPath());
 		try {
-			Object s = request.getSession().getAttribute("snake");
+			HttpSession session = request.getSession();
+			Object s = session.getAttribute("snake");
 			Snake snake = (Snake) s;
 			if (snake.getPseudo().equals(null)) {
-				
+
 			}else {
 				this.getServletContext().getRequestDispatcher( "/WEB-INF/MainPage.jsp" ).forward( request, response );
 			}
@@ -43,8 +47,8 @@ public class MainServlet extends HttpServlet {
 			// TODO: handle exception
 			response.sendRedirect(request.getContextPath()+"/snakerpg_auth");
 		}
-		
-		
+
+
 	}
 
 	/**
@@ -53,6 +57,7 @@ public class MainServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		doGet(request, response);
+
 	}
 
 }

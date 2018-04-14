@@ -48,7 +48,72 @@ public class SnakeDAOImpl implements SnakeDAO {
 			e.printStackTrace();
 		}
 	}
+	
+	public void addBonus(Bonus bonus) {
+		Connection connexion = null;
+		PreparedStatement preparedStatement = null;
 
+		try {
+			connexion = daoFactory.getConnection();
+			preparedStatement = connexion.prepareStatement("INSERT INTO bonus(nom, effet, image, prix, idsnakeassocie) VALUES(?, ?, ?, ?,?);");
+			preparedStatement.setString(1, bonus.getNom());
+			preparedStatement.setString(2, bonus.getEffet());
+			preparedStatement.setString(3, bonus.getImage());
+			preparedStatement.setDouble(4, bonus.getPrix());
+			preparedStatement.setInt(5, bonus.getIdsnakeassocie());
+
+			preparedStatement.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void debit(String pseudo, double n) {
+		Connection connexion = null;
+		PreparedStatement preparedStatement = null;
+		try {
+			connexion = daoFactory.getConnection();
+			String pseudoForQuery = "\""+pseudo+"\"";
+			preparedStatement = connexion.prepareStatement("UPDATE `snakejavaee`.`snake` SET `argent`='"+n+"' WHERE  pseudo="+pseudoForQuery+";");
+			
+			preparedStatement.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	
+	
+	public void incrementLevel(String pseudo, int n) {
+		Connection connexion = null;
+		PreparedStatement preparedStatement = null;
+		try {
+			connexion = daoFactory.getConnection();
+			String pseudoForQuery = "\""+pseudo+"\"";
+			preparedStatement = connexion.prepareStatement("UPDATE `snakejavaee`.`snake` SET `level`='"+n+"' WHERE  pseudo="+pseudoForQuery+";");
+			
+			preparedStatement.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public void addXP(String pseudo, double n) {
+		Connection connexion = null;
+		PreparedStatement preparedStatement = null;
+		try {
+			connexion = daoFactory.getConnection();
+			String pseudoForQuery = "\""+pseudo+"\"";
+			preparedStatement = connexion.prepareStatement("UPDATE `snakejavaee`.`snake` SET `xp`='"+n+"' WHERE  pseudo="+pseudoForQuery+";");
+			
+			preparedStatement.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	
+	
 	@Override
 	public List<Snake> lister() {
 

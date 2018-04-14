@@ -13,4 +13,8 @@ public interface SnakeDAO {
 	String getSnakePassword(String pPseudo);
 	boolean SnakePseudoExists(String pPseudo);
 	ArrayList<Bonus> getSnakeBonus(int idSnake);
+	void debit(String pseudo, double n);
+	void incrementLevel(String pseudo, int n);
+	void addXP(String pseudo, double n);
+	void addBonus(Bonus bonus);
 }
